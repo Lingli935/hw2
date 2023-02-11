@@ -11,19 +11,31 @@ std::string convToLower(std::string src)
     return src;
 }
 
+bool dupSpaces(char lhs, char rhs) { return (lhs == rhs) && (lhs == ' '); }
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
+// replace punctuations with spaces
+  for(size_t i = 0; i < rawWords.size(); ++i)
+  {
+    char c = ::tolower(rawWords[i]);
+    if (c < 'a' && c > 'z') rawWords[i] = ' ';
+  }
 
 
+  // remove repeated spaces
+  std::string::iterator new_end = std::unique(rawWords.begin(), rawWords.end(), dupSpaces);
+  rawWords.erase(new_end, rawWords.end());
 
-
-
-
-
-
-
+  // tokenize
+  std::set<std::string> output;
+  stringstream ss(rawWords);
+  string s;
+  while (getline(ss, s, ' ')) {
+    if(s.size() > 1) output.insert(s);
+  }
+  return output;
 
 }
 

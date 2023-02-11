@@ -1,0 +1,16 @@
+<Data Abstraction & Problem Solving with C++>
+Author: <Carrano and Henry> ISBN: <978-013292372-9>
+<79.990000> <20> left
+
+<Great Men and Women of Troy>
+Author: <Tommy Trojan> ISBN: <978-000000000-1>
+<19.500000> <5> left
+
+<Men's Fitted Shirt>
+Size: <Medium> Brand: <J. Crew>
+<39.990000> <25> left
+
+<Hidden Figures DVD>
+Genre <Drama> Rating: <PG>
+<17.990000> <1> left
+
