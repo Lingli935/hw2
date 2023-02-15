@@ -30,10 +30,11 @@ bool Clothing::isMatch(std::vector<std::string>& searchTerms) const {
 }
 
 std::string Clothing::displayString() const {
-  return "<"+name_+">\n" + "Size: <"+size_+"> Brand: <"+brand_+">\n"+"<"+std::to_string(price_)+"> <"+std::to_string(qty_)+"> left\n";
+  return name_+"\n" + "Size: "+size_+" Brand: "+brand_+"\n"+std::to_string(price_)+" "+std::to_string(qty_)+" left\n";
 }
 
 void Clothing::dump(std::ostream& os) const {
-  os << displayString() << std::endl;
+ 
+ Product::dump(os);
+ os<<size_<<"\n"<<brand_<<"\n";
 }
-

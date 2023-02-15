@@ -21,6 +21,7 @@ void displayProducts(vector<Product*>& hits);
 
 int main(int argc, char* argv[])
 {
+
     if(argc < 2) {
         cerr << "Please specify a database file" << endl;
         return 1;
@@ -31,7 +32,6 @@ int main(int argc, char* argv[])
      *  DataStore type to your derived type
      ****************/
     MyDataStore ds;
-
 
 
     // Instantiate the individual section and product parsers we want
@@ -92,19 +92,73 @@ int main(int argc, char* argv[])
                 displayProducts(hits);
             }
             else if ( cmd == "QUIT") {
+               // cout << "CALLING QUIT" << endl;
                 string filename;
                 if(ss >> filename) {
+                 //   cout << "CALLING QUIT with " << filename << endl;
                     ofstream ofile(filename.c_str());
                     ds.dump(ofile);
                     ofile.close();
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
-
-
-
-
+            else if ( cmd == "ADD") {
+                string term;
+                vector<string> terms;
+                while(ss >> term) {
+                    terms.push_back(term);
+                }
+                if (terms.size() != 2) {
+                    cout << "Invalid ADD command: expecting 2 arguments" << endl;
+                    continue;
+                }
+                auto username = terms[0];
+                auto hit_index = std::stoi(terms[1]) - 1;
+                if (hit_index < 0 || hit_index >= hits.size()) {
+                    cout << "Invalid ADD command: bad hit index" << endl;
+                    continue;
+                }
+                User* user = ds.getUser(username);
+                if (!user) {
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+                ds.addCart(user, hits[hit_index]);
+            } else if ( cmd == "VIEWCART") {
+                string term;
+                vector<string> terms;
+                while(ss >> term) {
+                    terms.push_back(term);
+                }
+                if (terms.size() != 1) {
+                    cout << "Invalid VIEWCART command: expecting 1 argument" << endl;
+                    continue;
+                }
+                auto username = terms[0];
+                User* user = ds.getUser(username);
+                if (!user) {
+                    cout << "Invalid username" << endl;
+                    continue;
+                }
+                ds.viewCart(user);
+            } else if ( cmd == "BUYCART") {
+                string term;
+                vector<string> terms;
+                while(ss >> term) {
+                    terms.push_back(term);
+                }
+                if (terms.size() != 1) {
+                    cout << "Invalid BUYCART command: expecting 1 argument" << endl;
+                    continue;
+                }
+                auto username = terms[0];
+                User* user = ds.getUser(username);
+                if (!user) {
+                    cout << "Invalid username" << endl;
+                    continue;
+                }
+                ds.buyCart(user);
+            }
             else {
                 cout << "Unknown command" << endl;
             }

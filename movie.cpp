@@ -30,10 +30,11 @@ bool Movie::isMatch(std::vector<std::string>& searchTerms) const {
 }
 
 std::string Movie::displayString() const {
- return "<"+name_+">\n" + "Genre <"+genre_+"> Rating: <"+rating_+">\n"+"<"+std::to_string(price_)+"> <"+std::to_string(qty_)+"> left\n";
+ return name_+"\n" + "Genre: "+genre_+" Rating: "+rating_+"\n"+std::to_string(price_)+"   "+std::to_string(qty_)+" left\n";
 }
 
 void Movie::dump(std::ostream& os) const {
-  os << displayString() << std::endl;
+   Product::dump(os);
+   os<<genre_<<"\n"<<rating_<<"\n";
 }
 

@@ -31,10 +31,17 @@ bool Book::isMatch(std::vector<std::string>& searchTerms) const {
 }
 
 std::string Book::displayString() const {
-  return "<"+name_+">\n" + "Author: <"+author_+"> ISBN: <"+isbn_+">\n"+"<"+std::to_string(price_)+"> <"+std::to_string(qty_)+"> left\n";
+  return name_+"\n" + "Author: "+author_+" ISBN: "+isbn_+"\n"+std::to_string(price_)+" "+std::to_string(qty_)+" left\n";
 }
 
+//
 void Book::dump(std::ostream& os) const {
-  os << displayString() << std::endl;
+
+	//call dump for the product (book)
+	Product::dump(os);
+	//os each data member (isbn, author etc.)
+	//based on the database.txt for it 
+	os<<isbn_<<"\n"<<author_<<"\n";
+
 }
 

@@ -20,7 +20,8 @@ std::set<std::string> parseStringToWords(string rawWords)
   for(size_t i = 0; i < rawWords.size(); ++i)
   {
     char c = ::tolower(rawWords[i]);
-    if (c < 'a' && c > 'z') rawWords[i] = ' ';
+		rawWords[i] = c;
+    if (c < 'a' || c > 'z') rawWords[i] = ' ';
   }
 
 
@@ -33,7 +34,7 @@ std::set<std::string> parseStringToWords(string rawWords)
   stringstream ss(rawWords);
   string s;
   while (getline(ss, s, ' ')) {
-    if(s.size() > 1) output.insert(s);
+    if(s.size() > 0) output.insert(s);
   }
   return output;
 
